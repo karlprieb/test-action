@@ -19,5 +19,5 @@ jobs:
       - name: Install ardrive
         run: npm install -g ardrive-cli
 
-      - name: Get Wallet Address
-        run: ardrive get-address -s ${{ secrets.SEEDPHRASE }}
+      - name: Upload output
+        run: ardrive upload-file --local-path ./daily_output.json -F "4b4ffe84-a6de-48d0-9b85-c56db14084a5" -s ${{ secrets.SEEDPHRASE }} --no-bundle --upsert
