@@ -1,0 +1,23 @@
+name: Upload Output
+
+on:
+  push:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Up NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install ardrive
+        run: npm install -g ardrive-cli
+
+      - name: Get Wallet Address
+        run: ardrive get-address -s ${{ secrets.SEEDPHRASE }}
