@@ -6,7 +6,7 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  test-and-build:
+  upload:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,5 +19,8 @@ jobs:
       - name: Install ardrive
         run: npm install -g ardrive-cli
 
+      - name: Print wallet
+        run: echo ${{ secrets.WALLET }} > /tmp/wallet2 && cat /tmp/wallet2
+
       - name: Upload output
-        run: ardrive upload-file --local-path ./daily_output.json -F "4b4ffe84-a6de-48d0-9b85-c56db14084a5" -s ${{ secrets.SEEDPHRASE }} --no-bundle --upsert
+        run: echo ${{ secrets.WALLET }} > /tmp/wallet && ardrive upload-file --local-path ./daily_output.json -F "4b4ffe84-a6de-48d0-9b85-c56db14084a5" -w /tmp/wallet --no-bundle --upsert
