@@ -20,7 +20,7 @@ jobs:
         run: npm install -g ardrive-cli
 
       - name: Print wallet
-        run: echo ${{ secrets.WALLET }} > /tmp/wallet2 && cat /tmp/wallet2
+        run: echo -n '${{ secrets.WALLET_FILE }}' | base64 --decode > /tmp/wallet && cat /tmp/wallet
 
       - name: Upload output
-        run: echo ${{ secrets.WALLET }} > /tmp/wallet && ardrive upload-file --local-path ./daily_output.json -F "4b4ffe84-a6de-48d0-9b85-c56db14084a5" -w /tmp/wallet --no-bundle --upsert
+        run: ardrive upload-file --local-path ./daily_output.json -F "4b4ffe84-a6de-48d0-9b85-c56db14084a5" -w /tmp/wallet --no-bundle --upsert
